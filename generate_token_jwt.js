@@ -1,10 +1,9 @@
 const jwt = require('jsonwebtoken');
-const secret = '7zv3v3tBFhhfFVUe3ifxIk';
+const publicKey = '0mrqFnsYGMjW2MPrclzvFa';
 
 const token = jwt.sign({
-    "sub": "3pmXmNAPLNQZJKRWmpBNNk",
+    "keyId": "5ZwwwIbjjRyvZePEGbduxp",
     "name": "sandi sunandar",
-    "iat": 1538828706
-}, secret);
+}, publicKey);
 
 console.log(token);
