@@ -29,3 +29,5 @@ test cara kerja api-gatway dengan auth global
 ![Alt text](https://github.com/sandisunandar99/api-gateway/blob/master/img/create%20credentials.png "cretae credentials")
 ###### setelah itu copy keySecret untuk dijadikan public key untuk mengakses servis B dan edit di configurasi gateway.config.yml seperti dibawah ini :
 ![Alt text](https://github.com/sandisunandar99/api-gateway/blob/master/img/public%20key.png "public key")
+setelah di coba akses ke servis B harus nya keluar pesan Unauthorized
+![Alt text](https://github.com/sandisunandar99/api-gateway/blob/master/img/anauthorized.png "public key")
