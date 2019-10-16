@@ -1,0 +1,52 @@
+http:
+  port: 8080
+admin:
+  port: 9876
+  host: localhost
+apiEndpoints:
+  api1:
+    host: 'localhost'
+    paths:
+      - '/posts'
+      - '/photos'
+  api2:
+    host: 'localhost'
+    paths:
+      - '/api/*'
+serviceEndpoints:
+  fake1:
+    url: 'https://jsonplaceholder.typicode.com/'
+  fake2:
+    url: 'https://reqres.in/'
+policies:
+  - jwt
+  - basic-auth
+  - cors
+  - expression
+  - key-auth
+  - log
+  - oauth2
+  - proxy
+  - rate-limit
+pipelines:
+  pipe_1:
+    apiEndpoints:
+      - api1
+    policies:
+    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+    # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: fake1
+              changeOrigin: true
+  pipe_2:
+    apiEndpoints:
+      - api2
+    policies:
+      - jwt:
+          - action:
+              secretOrPublicKey: '7zv3v3tBFhhfFVUe3ifxIk'
+              checkCredentialExistence: false
+      - proxy:
+          - action:
+              serviceEndpoint: fake2
