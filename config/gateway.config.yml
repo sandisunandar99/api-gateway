@@ -43,10 +43,10 @@ pipelines:
     apiEndpoints:
       - api2
     policies:
-      - jwt:
-          - action:
-              secretOrPublicKey: '7zv3v3tBFhhfFVUe3ifxIk'
-              checkCredentialExistence: false
+      # - jwt:
+      #     - action:
+      #         secretOrPublicKey: '7zv3v3tBFhhfFVUe3ifxIk'
+      #         checkCredentialExistence: false
       - proxy:
           - action:
               serviceEndpoint: fake2
