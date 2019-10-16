@@ -24,6 +24,6 @@ test cara kerja api-gatway dengan auth global
 ![Alt text](https://github.com/sandisunandar99/api-gateway/blob/master/img/create%20users.png "cretae users")
 
 ###### buat credential untuk user tono untuk mengakses service B atau ::/api/users
-###### $ eg credentials create -c kevin -t jwt
+###### $ eg credentials create -c tono -t jwt
 ###### keterangan : -c = consumer -t = type (type of credentials)
 ![Alt text](https://github.com/sandisunandar99/api-gateway/blob/master/img/create%20credentials.png "cretae credentials")
