@@ -4,49 +4,100 @@ admin:
   port: 9876
   host: localhost
 apiEndpoints:
-  api1:
+  login:
+    host: 'localhost'
+    paths:
+      - '/login'
+      - '/index'
+  posts:
     host: 'localhost'
     paths:
       - '/posts'
-      - '/photos'
-  api2:
+  users:
     host: 'localhost'
     paths:
       - '/api/*'
+  test:
+    host: 'localhost'
+    paths:
+      - '/test'
 serviceEndpoints:
-  fake1:
+  s_login:
+    url: 'http://localhost:3001/'
+  s_posts:
     url: 'https://jsonplaceholder.typicode.com/'
-  fake2:
+  s_users:
     url: 'https://reqres.in/'
 policies:
   - jwt
   - basic-auth
   - cors
   - expression
-  - key-auth
-  - log
-  - oauth2
+  # - key-auth
+  # - log
+  # - oauth2
   - proxy
-  - rate-limit
+  # - rate-limit
 pipelines:
-  pipe_1:
+  pipe_login:
     apiEndpoints:
-      - api1
+      - login
     policies:
     # Uncomment `key-auth:` when instructed to in the Getting Started guide.
     # - key-auth:
       - proxy:
           - action:
-              serviceEndpoint: fake1
+              serviceEndpoint: s_login
               changeOrigin: true
-  pipe_2:
+  pipe_posts:
     apiEndpoints:
-      - api2
+      - posts
     policies:
+    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+    # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: s_posts
+              # changeOrigin: true
+  pipe_users:
+    apiEndpoints:
+      - users
+    policies:
+      - expression:
+          - action:
+              jscode: >
+                  if (req.method !== 'GET') {
+                    res.status(400).send('eitsss ga bisa!!');
+                  }
       - jwt:
           - action:
               secretOrPublicKey: '0mrqFnsYGMjW2MPrclzvFa'
-              checkCredentialExistence: false
+              checkCredentialExistence: true
       - proxy:
           - action:
-              serviceEndpoint: fake2
+              serviceEndpoint: s_users
+  pipe_test:
+    apiEndpoints:
+      - test
+    policies:
+      - jwt:
+          - action:
+              # secretOrPublicKey: '46cQAqY5xQ4yUmHT9JpHSe'
+              secretOrPublicKey: '0mrqFnsYGMjW2MPrclzvFa'
+              checkCredentialExistence: true
+      - expression:
+          - action:
+              jscode: >
+                  if (req.method !== 'GET') {
+                    res.status(400).send('eittss ga bisa harus GET !');
+                  }
+      - expression:
+          - action:
+              jscode: >
+                  res.json({
+                    sss : 'asdas'
+                  });
+
+
+
+
